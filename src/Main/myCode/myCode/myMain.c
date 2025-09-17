@@ -40,10 +40,6 @@ void loop(void)
         uint8_t r = (uint32_t)sys_register.reg[2 + 0] * sys_register.reg[1] / 255;
         uint8_t g = (uint32_t)sys_register.reg[2 + 1] * sys_register.reg[1] / 255;
         uint8_t b = (uint32_t)sys_register.reg[2 + 2] * sys_register.reg[1] / 255;
-        
-        r = sys_register.reg[2 + 0] > 0 ? 255 : 0;
-        g = sys_register.reg[2 + 1] > 0 ? 255 : 0;
-        b = sys_register.reg[2 + 2] > 0 ? 255 : 0;
 
         rgb_set_color(r, g, b);
     }

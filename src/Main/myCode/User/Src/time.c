@@ -17,7 +17,7 @@ void MAX_ATIME_Init(void)
     ATIM_InitStruct.CounterAlignedMode = ATIM_COUNT_ALIGN_MODE_EDGE;
     ATIM_InitStruct.CounterDirection = ATIM_COUNTING_UP;
     ATIM_InitStruct.CounterOPMode = ATIM_OP_MODE_REPETITIVE;
-    ATIM_InitStruct.Prescaler = 4-1;    
+    ATIM_InitStruct.Prescaler = 400-1;    
     ATIM_InitStruct.ReloadValue = 1000-1; 
     ATIM_InitStruct.RepetitionCounter = 0;
     ATIM_Init(&ATIM_InitStruct);
@@ -51,7 +51,7 @@ void MAX_GTIME_Init(void)
     GTIM_InitStruct.ARRBuffState = GTIM_ARR_BUFF_EN;
     GTIM_InitStruct.Direction = GTIM_DIRECTION_UP;
     GTIM_InitStruct.EventOption = GTIM_EVENT_NORMAL;
-    GTIM_InitStruct.Prescaler = 4 - 1;
+    GTIM_InitStruct.Prescaler = 400 - 1;
     GTIM_InitStruct.PulseMode = GTIM_PULSE_MODE_DIS;
     GTIM_InitStruct.ReloadValue = 1000 -1;
     GTIM_InitStruct.UpdateOption = GTIM_UPDATE_DIS;
@@ -115,10 +115,26 @@ static void HAL_TIME_GPIO_Init(TIME_HandleTypeDef* timeHandle)
 
 void rgb_set_color(uint8_t r, uint8_t g, uint8_t b)
 {
-    // 设置RGB灯的颜色
-    uint32_t r32 = (uint32_t)r * 1000 / 255;
-    uint32_t g32 = (uint32_t)g * 1000 / 255;
-    uint32_t b32 = (uint32_t)b * 1000 / 255;
+    static const uint16_t offset = 197;
+
+    uint32_t r32;
+    uint32_t g32;
+    uint32_t b32;
+//    if (r > 0)
+//        r32 = (uint32_t)r * (1000 - offset) / 255 + offset;
+//    else
+//        r32 = 0;
+//    if (g > 0)
+//        g32 = (uint32_t)g * (1000 - offset) / 255 + offset;
+//    else
+//        g32 = 0;
+//    if (b > 0)
+//        b32 = (uint32_t)b * (1000 - offset) / 255 + offset;
+//    else
+//        b32 = 0;
+    r32 = (uint32_t)r * 1000 / 255;
+    g32 = (uint32_t)g * 1000 / 255;
+    b32 = (uint32_t)b * 1000 / 255;
 
     GTIM_SetCompare4(CW_GTIM1, 1000 - g32);
     GTIM_SetCompare3(CW_GTIM1, 1000 - r32);
