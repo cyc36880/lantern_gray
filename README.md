@@ -1,18 +1,6 @@
-***i2c 炫彩超声波***
+## 炫彩超声波
 
-cw32 连接 超声波芯片
-
-cw32 作为 iic 从机，控制 ws2812，使用串口读取距离
-
-- iic地址 0x57
-
-(WS2812)  写入:  0x02 , 亮度，R, G, B
-
-读取三个字节，dis =（H << 16）|  (M << 8)  |  L
-
-dis / 10000 (厘米)
-
-
+[协议](./docs/protocol.md)   [protocol](./docs/protocol_en.md) 
 
 
 
