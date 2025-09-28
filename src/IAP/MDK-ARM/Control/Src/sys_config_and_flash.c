@@ -277,11 +277,12 @@ int16_t sys_config_info_init(void)
     {
         enum SYSCONF_MEM_LIST item = (enum SYSCONF_MEM_LIST)i;
         sys_config_info_t *config_info = get_sys_config_info_handle(item);
+        size_t data_size = get_sys_config_info_data_size(item);
         if (NULL == config_info)
             continue;
 
-        read_data_from_flash(get_sys_config_addr_offset(item), &config_info->data_size, sizeof(config_info->data_size));
-        read_data_from_flash(get_sys_config_data_offset(item), get_sys_conf_data(item), config_info->data_size);
+        // read_data_from_flash(get_sys_config_addr_offset(item), &config_info->data_size, sizeof(config_info->data_size));
+        read_data_from_flash(get_sys_config_data_offset(item), get_sys_conf_data(item), data_size);
     }
 
 
