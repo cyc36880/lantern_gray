@@ -93,7 +93,10 @@ int Flash_copy(uint32_t target_addr, uint32_t source_addr, uint32_t size)
         memcpy(flash_copy_buffer, (uint8_t *)(source_addr + offset), copy_len);
 
         if (0 != FLASH_WriteBytes(target_addr + offset, flash_copy_buffer, FLASH_BLOCK_SIZE))
+        {
+            FLASH_LockAllPages();
             return -2;
+        }
     }
     FLASH_LockAllPages();
 
