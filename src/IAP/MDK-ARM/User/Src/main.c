@@ -20,15 +20,15 @@ int main(void)
     __enable_irq();
     SystemClock_Config();
     SysTickDelay(2);
-    
+
     MAX_ATIME_Init();
     MAX_GTIME_Init();
-    
+
     sys_config_info_init();
     uint8_t need_xmodem = 0;
     get_sys_config_data(SYSCONF_MEM_LIST_NEED_XMODEM, &need_xmodem);
 
-    if (need_xmodem!=0 && need_xmodem!=1)
+    if (need_xmodem != 0 && need_xmodem != 1)
     {
         need_xmodem = 0;
         set_sys_config_info(SYSCONF_MEM_LIST_NEED_XMODEM, &need_xmodem, 1);
@@ -37,8 +37,8 @@ int main(void)
 
     if (1 == need_xmodem)
     {
-        //setup();
-        for (uint8_t i=0; i<3; i++)
+        // setup();
+        for (uint8_t i = 0; i < 3; i++)
         {
             rgb_set_color(100, 100, 100);
             SysTickDelay(100);
@@ -58,8 +58,12 @@ int main(void)
         }
         else
         {
-            while (1)
+            while (1) // 😱接收失败 ！！！！！！！！！！！
             {
+                rgb_set_color(100, 0, 0);
+                SysTickDelay(100);
+                rgb_set_color(0, 0, 0);
+                SysTickDelay(80);
             }
         }
     }
@@ -73,7 +77,7 @@ int main(void)
 
     uint8_t copy_state = 0;
     get_sys_config_data(SYSCONF_MEM_LIST_FLASH_COPY_STATE, &copy_state);
-    if (copy_state!=0 && copy_state!=1)
+    if (copy_state != 0 && copy_state != 1)
     {
         copy_state = 0;
         set_sys_config_info(SYSCONF_MEM_LIST_FLASH_COPY_STATE, &copy_state, 1);
@@ -96,6 +100,10 @@ int main(void)
         {
             while (1) // 😱拷贝失败 ！！！！！！！！！！！
             {
+                rgb_set_color(0, 100, 0);
+                SysTickDelay(100);
+                rgb_set_color(0, 0, 0);
+                SysTickDelay(80);
             };
         }
     }
@@ -129,13 +137,13 @@ static void SystemClock_Config(void)
     SYSCTRL_HSI_Enable(SYSCTRL_HSIOSC_DIV1);
     SYSCTRL_SysClk_Switch(SYSCTRL_SYSCLKSRC_HSI);
     //    SYSCTRL_HSE_Enable(SYSCTRL_HSE_MODE_OSC, 32000000, SYSCTRL_HSE_DRIVER_LEVEL5, 0); // 开外部高速时钟，实际频率需要根据实际晶体频率重新配置
-//    SYSCTRL_SysClk_Switch(SYSCTRL_SYSCLKSRC_HSE);
+    //    SYSCTRL_SysClk_Switch(SYSCTRL_SYSCLKSRC_HSE);
     InitTick(48000000);
     SYSCTRL_SystemCoreClockUpdate(48000000);
 
     REGBITS_SET(CW_SYSCTRL->AHBEN, (0x5A5A0000 | bv1));
     REGBITS_SET(CW_SYSCTRL->AHBEN, (0x5A5A0000 | bv5));
 
-    FLASH_SetLatency(FLASH_Latency_2);                   //频率大于24M需要配置FlashWait=2
+    FLASH_SetLatency(FLASH_Latency_2); // 频率大于24M需要配置FlashWait=2
     // FLASH_SetLatency(FLASH_Latency_1); // 频率小于24M需要配置FlashWait=1
 }
