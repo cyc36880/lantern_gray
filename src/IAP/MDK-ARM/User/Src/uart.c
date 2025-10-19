@@ -11,7 +11,7 @@ void MAX_UART1_Init(void)
     huart1.Init.UART_BaudRate = 115200;
     huart1.Init.UART_Over = UART_Over_16;
     huart1.Init.UART_Source = UART_Source_PCLK;
-    huart1.Init.UART_UclkFreq = 24000000;
+    huart1.Init.UART_UclkFreq = 48000000;
     huart1.Init.UART_StartBit = UART_StartBit_FE;
     huart1.Init.UART_StopBits = UART_StopBits_1;
     huart1.Init.UART_Parity = UART_Parity_No;

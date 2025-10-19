@@ -115,8 +115,6 @@ static void HAL_TIME_GPIO_Init(TIME_HandleTypeDef* timeHandle)
 
 void rgb_set_color(uint8_t r, uint8_t g, uint8_t b)
 {
-    static const uint16_t offset = 197;
-
     uint32_t r32;
     uint32_t g32;
     uint32_t b32;

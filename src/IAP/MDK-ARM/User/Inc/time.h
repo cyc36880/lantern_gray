@@ -15,6 +15,7 @@ typedef struct
 void MAX_ATIME_Init(void);
 void MAX_GTIME_Init(void);
 
+void rgb_set_color(uint8_t r, uint8_t g, uint8_t b);
 
 #ifdef __cplusplus
 }
